@@ -1,13 +1,9 @@
 package com.gabriel.draw;
 
 import com.gabriel.draw.component.DrawingMenuBar;
-import com.gabriel.draw.controller.DrawingWindowController;
-import com.gabriel.draw.service.DeawingCommandAppService;
+import com.gabriel.draw.service.DrawingCommandAppService;
 import com.gabriel.draw.service.DrawingAppService;
-import com.gabriel.draw.controller.DrawingController;
-import com.gabriel.draw.view.DrawingView;
 import com.gabriel.draw.view.DrawingFrame;
-import com.gabriel.drawfx.model.Drawing;
 import com.gabriel.drawfx.service.AppService;
 
 import javax.swing.*;
@@ -17,23 +13,16 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         AppService drawingAppService = new DrawingAppService();
-        AppService appService = new DeawingCommandAppService(drawingAppService);
+        AppService appService = new DrawingCommandAppService(drawingAppService);
 
         DrawingFrame drawingFrame = new DrawingFrame(appService);
-        DrawingMenuBar drawingMenuBar = new DrawingMenuBar(appService);
+        DrawingMenuBar menuBar = new DrawingMenuBar(appService);
 
-        DrawingView drawingView = new DrawingView(appService);
-        DrawingController drawingController = new DrawingController(appService, drawingView);
-        drawingView.addMouseMotionListener(drawingController);
-        drawingView.addMouseListener(drawingController);
-        drawingFrame.add(drawingView);
-
-
-        drawingMenuBar.setVisible(true);
-        drawingFrame.setJMenuBar(drawingMenuBar);
+        menuBar.setVisible(true);
+        drawingFrame.setJMenuBar(menuBar);
 
         drawingFrame.setVisible(true);
         drawingFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        drawingFrame.setSize(500,500);
+        drawingFrame.setSize(500, 500);
     }
 }
